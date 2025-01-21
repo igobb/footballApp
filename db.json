@@ -1,0 +1,66 @@
+{
+    "players": [
+        {
+            "id": 1,
+            "firstName": "Jan",
+            "lastName": "Kowalski",
+            "teamId": 1
+        },
+        {
+            "id": 2,
+            "firstName": "Adam",
+            "lastName": "Nowak",
+            "teamId": 2
+        },
+        {
+            "id": 3,
+            "firstName": "Piotr",
+            "lastName": "Wiśniewski",
+            "teamId": 1
+        },
+        {
+            "id": 4,
+            "firstName": "Krzysztof",
+            "lastName": "Wójcik",
+            "teamId": 2
+        },
+        {
+            "id": 5,
+            "firstName": "Marek",
+            "lastName": "Kowalczyk",
+            "teamId": 1
+        },
+        {
+            "id": 6,
+            "firstName": "Tomasz",
+            "lastName": "Kaczmarek",
+            "teamId": 2
+        }
+    ],
+    "teams": [
+        {
+            "id": 1,
+            "name": "FC Barcelona",
+            "year": 1899,
+            "location": "Barcelona"
+        },
+        {
+            "id": 2,
+            "name": "Real Madrid",
+            "year": 1902,
+            "location": "Madrid"
+        }
+    ],
+    "games": [
+        {
+            "id": 1,
+            "date": "2025-01-01",
+            "title": "El Clasico",
+            "place": "Camp Nou",
+            "duration": 90,
+            "result": "2:2",
+            "team1Id": 1,
+            "team2Id": 2
+        }
+    ]
+}
