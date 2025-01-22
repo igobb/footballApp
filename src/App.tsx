@@ -1,11 +1,21 @@
-import styled, { ThemeProvider } from 'styled-components'
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { Tabs } from './components/Tabs'
 import { ThemeSwitcher } from './components/ThemeSwitcher'
 import { Paragraph } from './components/Paragraph'
 import { useState } from 'react'
 
+const GlobalStyle = createGlobalStyle`
+    body {
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: ${(props) => props.theme.colors.background};
+        display: flex;
+        flex-direction: column;
+    }`
+
 function App() {
-    const [theme, setTheme] = useState<'light' | 'dark'>('light')
+    const [theme, setTheme] = useState<'light' | 'dark'>('dark')
 
     const light = {
         colors: {
@@ -25,12 +35,6 @@ function App() {
         },
     }
 
-    const StyledWrapper = styled.div`
-        background-color: ${(props) => props.theme.colors.background};
-        height: 100vh;
-        juisify-content: center;
-    `
-
     const StyledRow = styled.div`
         display: flex;
         justify-content: center;
@@ -41,15 +45,15 @@ function App() {
 
     return (
         <ThemeProvider theme={theme === 'light' ? light : dark}>
-            <StyledWrapper>
-                <StyledRow>
-                    <Paragraph>Football App</Paragraph>
+            <GlobalStyle />
 
-                    <ThemeSwitcher theme={theme} setTheme={setTheme} />
-                </StyledRow>
+            <StyledRow>
+                <Paragraph>Football App</Paragraph>
 
-                <Tabs />
-            </StyledWrapper>
+                <ThemeSwitcher theme={theme} setTheme={setTheme} />
+            </StyledRow>
+
+            <Tabs />
         </ThemeProvider>
     )
 }
