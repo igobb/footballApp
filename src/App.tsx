@@ -1,38 +1,60 @@
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { Tabs } from './components/Tabs'
+import { ThemeSwitcher } from './components/ThemeSwitcher'
+import { Paragraph } from './components/Paragraph'
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
+const GlobalStyle = createGlobalStyle`
+    body {
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: ${(props) => props.theme.colors.background};
+        display: flex;
+        flex-direction: column;
+    }`
 
 function App() {
-    const [count, setCount] = useState(0)
+    const [theme, setTheme] = useState<'light' | 'dark'>('dark')
+
+    const light = {
+        colors: {
+            primary: '#5f6d6d',
+            textPrimary: 'white',
+            background: '#f9f9f9',
+            textBackground: 'black',
+        },
+    }
+
+    const dark = {
+        colors: {
+            primary: '#bfbfbf',
+            textPrimary: '#000000',
+            background: '#1a1a1a',
+            textBackground: '#bfbfbf',
+        },
+    }
+
+    const StyledRow = styled.div`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin: 2rem 0;
+    `
 
     return (
-        <>
-            <div>
-                <a href="https://vite.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img
-                        src={reactLogo}
-                        className="logo react"
-                        alt="React logo"
-                    />
-                </a>
-            </div>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
-        </>
+        <ThemeProvider theme={theme === 'light' ? light : dark}>
+            <GlobalStyle />
+
+            <StyledRow>
+                <Paragraph>Football App</Paragraph>
+
+                <ThemeSwitcher theme={theme} setTheme={setTheme} />
+            </StyledRow>
+
+            <Tabs />
+        </ThemeProvider>
     )
 }
 
