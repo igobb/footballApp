@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
-import { Tabs } from './components/Tabs'
+import { Tabs } from './pages/Tabs'
 import { ThemeSwitcher } from './components/ThemeSwitcher'
 import { Paragraph } from './components/Paragraph'
 import { useState } from 'react'

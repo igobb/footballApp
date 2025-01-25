@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 interface ButtonProps {
     label: string
-    onClick?: () => void
+    onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 const StyledButton = styled.button`
