@@ -70,13 +70,28 @@ export const EditForm = ({ player, onCancel }: EditFormProps) => {
         teamName: player.teamName || '',
     })
 
+    const [errors, setErrors] = useState({
+        firstName: '',
+        lastName: '',
+    })
+
     const { mutate, isPending, error } = useEditPlayerMutation(player.id)
     const { data: teams, isLoading, error: teamsError } = useGetTeamsQuery()
 
+    const validateFields = () => {
+        const newErrors = {
+            firstName:
+                value.firstName.trim() === '' ? 'First name is required' : '',
+            lastName:
+                value.lastName.trim() === '' ? 'Last name is required' : '',
+        }
+        setErrors(newErrors)
+        return !Object.values(newErrors).some((error) => error !== '')
+    }
+
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-
-        if (value.firstName && value.lastName) {
+        if (validateFields()) {
             mutate({
                 firstName: value.firstName,
                 lastName: value.lastName,
@@ -91,12 +106,8 @@ export const EditForm = ({ player, onCancel }: EditFormProps) => {
         return <div>Loading...</div>
     }
 
-    if (error) {
-        return <div>Error: {error.message}</div>
-    }
-
-    if (teamsError) {
-        return <div>Error: {teamsError.message}</div>
+    if (error || teamsError) {
+        return <div>Error: {error?.message || teamsError?.message}</div>
     }
 
     return (
@@ -111,6 +122,9 @@ export const EditForm = ({ player, onCancel }: EditFormProps) => {
                     setValue((prev) => ({ ...prev, firstName: e.target.value }))
                 }
             />
+            {errors.firstName && (
+                <p style={{ color: 'red' }}>{errors.firstName}</p>
+            )}
 
             <Label htmlFor="lastName">Last name</Label>
             <Input
@@ -122,6 +136,9 @@ export const EditForm = ({ player, onCancel }: EditFormProps) => {
                     setValue((prev) => ({ ...prev, lastName: e.target.value }))
                 }
             />
+            {errors.lastName && (
+                <p style={{ color: 'red' }}>{errors.lastName}</p>
+            )}
 
             <Label htmlFor="teamId">Team</Label>
             <Select
@@ -147,11 +164,7 @@ export const EditForm = ({ player, onCancel }: EditFormProps) => {
             </Select>
 
             <StyledButtonWrapper>
-                <Button
-                    label="Save"
-                    variant="success"
-                    isDisabled={!value.firstName || !value.lastName}
-                />
+                <Button label="Save" variant="success" />
                 <Button label="Cancel" variant="danger" onClick={onCancel} />
             </StyledButtonWrapper>
         </FormWrapper>

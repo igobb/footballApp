@@ -64,16 +64,28 @@ export const AddForm = () => {
         teamName: '',
     })
 
-    console.log(value)
+    const [errors, setErrors] = useState({
+        firstName: '',
+        lastName: '',
+    })
 
     const { mutate, isPending, error } = useAddPlayerMutation()
-
     const { data: teams, isLoading, error: teamsError } = useGetTeamsQuery()
+
+    const validateFields = () => {
+        const newErrors = {
+            firstName:
+                value.firstName.trim() === '' ? 'First name is required' : '',
+            lastName:
+                value.lastName.trim() === '' ? 'Last name is required' : '',
+        }
+        setErrors(newErrors)
+        return !Object.values(newErrors).some((error) => error !== '')
+    }
 
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-
-        if (value.firstName && value.lastName) {
+        if (validateFields()) {
             mutate({
                 firstName: value.firstName,
                 lastName: value.lastName,
@@ -87,15 +99,9 @@ export const AddForm = () => {
         return <div>Loading...</div>
     }
 
-    if (error) {
-        return <div>Error: {error.message}</div>
+    if (error || teamsError) {
+        return <div>Error: {error?.message || teamsError?.message}</div>
     }
-
-    if (teamsError) {
-        return <div>Error: {teamsError.message}</div>
-    }
-
-    console.log(!value.firstName || !value.lastName || !value.teamId)
 
     return (
         <FormWrapper onSubmit={onSubmit}>
@@ -109,6 +115,9 @@ export const AddForm = () => {
                     setValue((prev) => ({ ...prev, firstName: e.target.value }))
                 }
             />
+            {errors.firstName && (
+                <p style={{ color: 'red' }}>{errors.firstName}</p>
+            )}
 
             <Label htmlFor="lastName">Last name</Label>
             <Input
@@ -120,9 +129,11 @@ export const AddForm = () => {
                     setValue((prev) => ({ ...prev, lastName: e.target.value }))
                 }
             />
+            {errors.lastName && (
+                <p style={{ color: 'red' }}>{errors.lastName}</p>
+            )}
 
             <Label htmlFor="teamId">Team</Label>
-
             <Select
                 id="teamId"
                 name="teamId"
@@ -146,11 +157,7 @@ export const AddForm = () => {
             </Select>
 
             <StyledButtonWrapper>
-                <Button
-                    label="Add"
-                    variant="success"
-                    isDisabled={!value.firstName || !value.lastName}
-                />
+                <Button label="Add" variant="success" />
             </StyledButtonWrapper>
         </FormWrapper>
     )
