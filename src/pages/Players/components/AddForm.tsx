@@ -1,0 +1,157 @@
+import styled from 'styled-components'
+import { Button } from '../../../components/Button'
+import { useAddPlayerMutation } from '../../../queries/useAddPlayerMutation'
+import { useState } from 'react'
+import { useGetTeamsQuery } from '../../../queries/useGetTeamsQuery'
+
+const FormWrapper = styled.form`
+    max-width: 400px;
+    padding: 20px;
+    background-color: ${(props) => props.theme.colors.formBackground};
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`
+
+const Label = styled.label`
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: ${(props) => props.theme.colors.textBackground};
+`
+
+const Input = styled.input`
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+
+    &:focus {
+        outline: none;
+        border-color: ${(props) => props.theme.colors.primary};
+        box-shadow: 0 0 4px ${(props) => props.theme.colors.primary};
+    }
+`
+
+const Select = styled.select`
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+
+    &:focus {
+        outline: none;
+        border-color: ${(props) => props.theme.colors.primary};
+        box-shadow: 0 0 4px ${(props) => props.theme.colors.primary};
+    }
+`
+
+const StyledButtonWrapper = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 15px;
+`
+
+export const AddForm = () => {
+    const [value, setValue] = useState({
+        firstName: '',
+        lastName: '',
+        teamId: '',
+        teamName: '',
+    })
+
+    console.log(value)
+
+    const { mutate, isPending, error } = useAddPlayerMutation()
+
+    const { data: teams, isLoading, error: teamsError } = useGetTeamsQuery()
+
+    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+
+        if (value.firstName && value.lastName) {
+            mutate({
+                firstName: value.firstName,
+                lastName: value.lastName,
+                teamId: value.teamId,
+                teamName: value.teamName,
+            })
+        }
+    }
+
+    if (isPending || isLoading) {
+        return <div>Loading...</div>
+    }
+
+    if (error) {
+        return <div>Error: {error.message}</div>
+    }
+
+    if (teamsError) {
+        return <div>Error: {teamsError.message}</div>
+    }
+
+    console.log(!value.firstName || !value.lastName || !value.teamId)
+
+    return (
+        <FormWrapper onSubmit={onSubmit}>
+            <Label htmlFor="firstName">First name</Label>
+            <Input
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={value.firstName}
+                onChange={(e) =>
+                    setValue((prev) => ({ ...prev, firstName: e.target.value }))
+                }
+            />
+
+            <Label htmlFor="lastName">Last name</Label>
+            <Input
+                type="text"
+                id="lastName"
+                name="lastName"
+                value={value.lastName}
+                onChange={(e) =>
+                    setValue((prev) => ({ ...prev, lastName: e.target.value }))
+                }
+            />
+
+            <Label htmlFor="teamId">Team</Label>
+
+            <Select
+                id="teamId"
+                name="teamId"
+                value={value.teamId}
+                onChange={(e) => {
+                    const teamId = e.target.value
+                    const team = teams?.find((team) => team.id === teamId)
+                    setValue((prev) => ({
+                        ...prev,
+                        teamId: teamId === '0' ? '' : teamId,
+                        teamName: teamId === '0' ? '' : team?.name || '',
+                    }))
+                }}
+            >
+                <option value="0">Without team</option>
+                {teams?.map((team) => (
+                    <option key={team.id} value={team.id}>
+                        {team.name}
+                    </option>
+                ))}
+            </Select>
+
+            <StyledButtonWrapper>
+                <Button
+                    label="Add"
+                    variant="success"
+                    isDisabled={!value.firstName || !value.lastName}
+                />
+            </StyledButtonWrapper>
+        </FormWrapper>
+    )
+}
