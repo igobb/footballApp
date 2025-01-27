@@ -1,66 +1,114 @@
 {
-    "players": [
-        {
-            "id": 1,
-            "firstName": "Jan",
-            "lastName": "Kowalski",
-            "teamId": 1
-        },
-        {
-            "id": 2,
-            "firstName": "Adam",
-            "lastName": "Nowak",
-            "teamId": 2
-        },
-        {
-            "id": 3,
-            "firstName": "Piotr",
-            "lastName": "Wiśniewski",
-            "teamId": 1
-        },
-        {
-            "id": 4,
-            "firstName": "Krzysztof",
-            "lastName": "Wójcik",
-            "teamId": 2
-        },
-        {
-            "id": 5,
-            "firstName": "Marek",
-            "lastName": "Kowalczyk",
-            "teamId": 1
-        },
-        {
-            "id": 6,
-            "firstName": "Tomasz",
-            "lastName": "Kaczmarek",
-            "teamId": 2
-        }
-    ],
-    "teams": [
-        {
-            "id": 1,
-            "name": "FC Barcelona",
-            "year": 1899,
-            "location": "Barcelona"
-        },
-        {
-            "id": 2,
-            "name": "Real Madrid",
-            "year": 1902,
-            "location": "Madrid"
-        }
-    ],
-    "games": [
-        {
-            "id": 1,
-            "date": "2025-01-01",
-            "title": "El Clasico",
-            "place": "Camp Nou",
-            "duration": 90,
-            "result": "2:2",
-            "team1Id": 1,
-            "team2Id": 2
-        }
-    ]
+  "players": [
+    {
+      "id": "2",
+      "firstName": "Edytowany",
+      "lastName": "Nowak",
+      "teamId": "",
+      "teamName": ""
+    },
+    {
+      "id": "dd23",
+      "firstName": "Kaz",
+      "lastName": "Bałagane",
+      "teamId": "2",
+      "teamName": "Real Madrid"
+    },
+    {
+      "id": "8ce5",
+      "firstName": "Kazior",
+      "lastName": "Bałaganiarz",
+      "teamId": "2",
+      "teamName": "Real Madrid"
+    },
+    {
+      "id": "bc7b",
+      "firstName": "Tomasz",
+      "lastName": "Kupisz",
+      "teamId": "2",
+      "teamName": "Real Madrid"
+    },
+    {
+      "id": "fe32",
+      "firstName": "Tomasz",
+      "lastName": "Kapiszi",
+      "teamId": "1",
+      "teamName": "Barcelona"
+    },
+    {
+      "id": "69bb",
+      "firstName": "Kazior",
+      "lastName": "Gołąb",
+      "teamId": "1",
+      "teamName": "FC Barcelona"
+    },
+    {
+      "id": "2b25",
+      "firstName": "Kazior",
+      "lastName": "Gołąb",
+      "teamId": "2",
+      "teamName": "Real Madrid"
+    },
+    {
+      "id": "b3db",
+      "firstName": "Kazior",
+      "lastName": "Gołąb",
+      "teamId": "2",
+      "teamName": "Real Madrid"
+    },
+    {
+      "id": "df39",
+      "firstName": "Kazior",
+      "lastName": "Gołąb",
+      "teamId": "1",
+      "teamName": "FC Barcelona"
+    },
+    {
+      "id": "8427",
+      "firstName": "Tomasz",
+      "lastName": " Gołąb",
+      "teamId": "",
+      "teamName": ""
+    },
+    {
+      "id": "c14a",
+      "firstName": "Tomasz",
+      "lastName": " Gołąb",
+      "teamId": "",
+      "teamName": ""
+    },
+    {
+      "id": "d607",
+      "firstName": "Bez",
+      "lastName": "Z FCB",
+      "teamId": "1",
+      "teamName": "FC Barcelona"
+    }
+  ],
+  "teams": [
+    {
+      "id": "1",
+      "name": "FC Barcelona",
+      "year": 1899,
+      "location": "Barcelona"
+    },
+    {
+      "id": "2",
+      "name": "Real Madrid",
+      "year": 1902,
+      "location": "Madrid"
+    }
+  ],
+  "games": [
+    {
+      "id": "1",
+      "date": "2025-01-01",
+      "title": "El Clasico",
+      "place": "Camp Nou",
+      "duration": 90,
+      "result": "2:2",
+      "team1Id": "1",
+      "team2Id": "2"
+    }
+  ]
 }

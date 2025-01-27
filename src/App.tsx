@@ -3,6 +3,9 @@ import { Tabs } from './pages/Tabs'
 import { ThemeSwitcher } from './components/ThemeSwitcher'
 import { Paragraph } from './components/Paragraph'
 import { useState } from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -20,18 +23,28 @@ function App() {
     const light = {
         colors: {
             primary: '#5f6d6d',
+            secondary: '#5c5c5c',
+            success: '#5cb85c',
+            warning: '#f0ad4e',
+            danger: '#d9534f',
             textPrimary: 'white',
             background: '#f9f9f9',
             textBackground: 'black',
+            formBackground: '#f0f0f0',
         },
     }
 
     const dark = {
         colors: {
             primary: '#bfbfbf',
+            secondary: '#2c5c5c',
+            success: '#5cb85c',
+            warning: '#f0ad4e',
+            danger: '#d9534f',
             textPrimary: '#000000',
             background: '#1a1a1a',
             textBackground: '#bfbfbf',
+            formBackground: '#333333',
         },
     }
 
@@ -44,17 +57,19 @@ function App() {
     `
 
     return (
-        <ThemeProvider theme={theme === 'light' ? light : dark}>
-            <GlobalStyle />
+        <QueryClientProvider client={queryClient}>
+            <ThemeProvider theme={theme === 'light' ? light : dark}>
+                <GlobalStyle />
 
-            <StyledRow>
-                <Paragraph>Football App</Paragraph>
+                <StyledRow>
+                    <Paragraph>Football App</Paragraph>
 
-                <ThemeSwitcher theme={theme} setTheme={setTheme} />
-            </StyledRow>
+                    <ThemeSwitcher theme={theme} setTheme={setTheme} />
+                </StyledRow>
 
-            <Tabs />
-        </ThemeProvider>
+                <Tabs />
+            </ThemeProvider>
+        </QueryClientProvider>
     )
 }
 
