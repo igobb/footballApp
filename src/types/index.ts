@@ -19,3 +19,20 @@ export interface Team {
     year: number
     location: string
 }
+
+export interface TeamDto {
+    name: string
+    year: number
+    location: string
+}
+
+export interface Games {
+    id: string
+    date: string
+    title: string
+    place: string
+    duration: number
+    result: string
+    team1Id: string
+    team2Id: string
+}

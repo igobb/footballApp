@@ -3,7 +3,7 @@ const API_KEY = import.meta.env.VITE_API_KEY
 export const useApi = () => {
     const call = async <R, P = {}>(
         url: string,
-        method: 'GET' | 'POST' | 'PUT' | 'DELETE',
+        method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
         body?: P,
     ) => {
         const commonData = {
@@ -53,10 +53,17 @@ export const useApi = () => {
         return await call<R, P>(url, 'PUT', body)
     }
 
+    const apiPatch = async <R, P>(
+        url: string,
+        body: P,
+    ): Promise<R | undefined> => {
+        return await call<R, P>(url, 'PATCH', body)
+    }
     return {
         apiPost,
         apiGet,
         apiDelete,
         apiPut,
+        apiPatch,
     }
 }

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Header } from '../../components/Header'
 import { useGetPlayersQuery } from '../../queries/useGetPlayersQuery'
-import { Table } from '../../components/Table'
+import { Table } from '../../components/PlayersTable'
 import { Player } from '../../types'
 import { Actions } from './components/Actions'
 import { useDeletePlayerMutation } from '../../queries/useDeletePlayerMutation'
