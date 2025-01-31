@@ -78,8 +78,7 @@ export const AddCompetitionForm = () => {
             title: value.title.trim() === '' ? 'Title is required' : '',
             date: value.date.trim() === '' ? 'Date is required' : '',
             place: value.place.trim() === '' ? 'Place is required' : '',
-            duration:
-                value.duration === 0 ? 'Duration is required' : '',
+            duration: value.duration === 0 ? 'Duration is required' : '',
             result: value.result.trim() === '' ? 'Result is required' : '',
             team1Id: value.team1Id === '' ? 'Team 1 is required' : '',
             team2Id: value.team2Id === '' ? 'Team 2 is required' : '',

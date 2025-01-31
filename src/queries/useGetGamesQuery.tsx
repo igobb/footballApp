@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useApi } from '../hooks/useApi'
-import { Games } from '../types'
+import { Game } from '../types'
 
 export const useGetGamesQuery = () => {
     const { apiGet } = useApi()
@@ -8,7 +8,7 @@ export const useGetGamesQuery = () => {
     const { data, isLoading, error } = useQuery({
         queryKey: ['games'],
         queryFn: async () => {
-            return apiGet<Games[]>('games')
+            return apiGet<Game[]>('games')
         },
     })
 
