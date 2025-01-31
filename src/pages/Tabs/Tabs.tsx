@@ -3,6 +3,7 @@ import { Button } from '../../components/Button'
 import { useState } from 'react'
 import Players from '../Players/Players'
 import { Teams } from '../Teams'
+import { Competitions } from '../Competitions/Competitions'
 
 const MainDiv = styled.div`
     display: flex;
@@ -36,7 +37,7 @@ export const Tabs = () => {
             case 'teams':
                 return <Teams />
             case 'competitions':
-                return <div>Competitions</div>
+                return <Competitions />
             case 'statistics':
                 return <div>Statistics</div>
             default:

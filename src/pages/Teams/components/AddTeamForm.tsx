@@ -54,7 +54,6 @@ export const AddTeamForm = () => {
     })
 
     const { mutate, isPending, error } = useAddTeamMutation()
-    // const { data: teams, isLoading, error: teamsError } = useGetTeamsQuery()
 
     const validateFields = () => {
         const newErrors = {

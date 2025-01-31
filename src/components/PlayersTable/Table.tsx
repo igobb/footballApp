@@ -89,6 +89,7 @@ export const Table = <T extends { id: string; teamName?: string }>({
                                 <Button
                                     label="Edit"
                                     variant="warning"
+                                    isLoading={isLoading}
                                     onClick={() => onEdit(item)}
                                 />
                             </StyledTableData>

@@ -83,6 +83,7 @@ export const TeamTable = ({
                                         label="Edit"
                                         variant="warning"
                                         onClick={() => onEditTeam(team)}
+                                        isLoading={isLoading}
                                     />
                                 </StyledTableData>
                                 <StyledTableData>
@@ -90,6 +91,7 @@ export const TeamTable = ({
                                         label="Edit roaster"
                                         variant="warning"
                                         onClick={() => onEditRoster(team)}
+                                        isLoading={isLoading}
                                     />
                                 </StyledTableData>
                                 <StyledTableData>

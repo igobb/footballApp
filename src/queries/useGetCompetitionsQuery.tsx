@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useApi } from '../hooks/useApi'
 import { Game } from '../types'
 
-export const useGetGamesQuery = () => {
+export const useGetCompetitionssQuery = () => {
     const { apiGet } = useApi()
 
     const { data, isLoading, error } = useQuery({
