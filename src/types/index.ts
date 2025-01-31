@@ -26,8 +26,18 @@ export interface TeamDto {
     location: string
 }
 
-export interface Games {
+export interface Game {
     id: string
+    date: string
+    title: string
+    place: string
+    duration: number
+    result: string
+    team1Id: string
+    team2Id: string
+}
+
+export interface GameDto {
     date: string
     title: string
     place: string
