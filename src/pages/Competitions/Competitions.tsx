@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Header } from '../../components/Header'
 import { Actions } from './components/Actions'
-import { useGetCompetitionssQuery } from '../../queries/useGetCompetitionsQuery'
+import { useGetCompetitionsQuery } from '../../queries/useGetCompetitionsQuery'
 import { CompetitionTable } from '../../components/CompetitionsTable/CompetitionsTable'
 import { useGetTeamsQuery } from '../../queries/useGetTeamsQuery'
 import { Fragment, useState } from 'react'
@@ -19,7 +19,7 @@ export const Competitions = () => {
     const [choosenCompetitionToEdit, setChoosenCompetitionToEdit] =
         useState<Game | null>(null)
 
-    const { data, isLoading, error } = useGetCompetitionssQuery()
+    const { data, isLoading, error } = useGetCompetitionsQuery()
     const {
         data: Teams,
         isLoading: isTeamsLoading,

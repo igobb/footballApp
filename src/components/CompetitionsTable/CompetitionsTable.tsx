@@ -82,7 +82,8 @@ export const CompetitionTable = ({
                                     {competition.duration}
                                 </StyledTableData>
                                 <StyledTableData>
-                                    {competition.result}
+                                    {competition.score.team1}:
+                                    {competition.score.team2}
                                 </StyledTableData>
                                 <StyledTableData>
                                     {getTeamNameById(competition.team1Id)}

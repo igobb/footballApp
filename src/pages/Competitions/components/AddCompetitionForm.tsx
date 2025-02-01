@@ -50,12 +50,26 @@ const StyledButtonWrapper = styled.div`
 `
 
 export const AddCompetitionForm = () => {
-    const [value, setValue] = useState({
+    const [value, setValue] = useState<{
+        title: string
+        date: string
+        place: string
+        duration: number
+        score: {
+            team1?: number
+            team2?: number
+        }
+        team1Id: string
+        team2Id: string
+    }>({
         title: '',
         date: '',
         place: '',
         duration: 0,
-        result: '',
+        score: {
+            team1: undefined,
+            team2: undefined,
+        },
         team1Id: '',
         team2Id: '',
     })
@@ -64,8 +78,11 @@ export const AddCompetitionForm = () => {
         title: '',
         date: '',
         place: '',
-        duration: 0,
-        result: '',
+        duration: '',
+        score: {
+            team1: '',
+            team2: '',
+        },
         team1Id: '',
         team2Id: '',
     })
@@ -78,27 +95,50 @@ export const AddCompetitionForm = () => {
             title: value.title.trim() === '' ? 'Title is required' : '',
             date: value.date.trim() === '' ? 'Date is required' : '',
             place: value.place.trim() === '' ? 'Place is required' : '',
-            duration: value.duration === 0 ? 'Duration is required' : '',
-            result: value.result.trim() === '' ? 'Result is required' : '',
+            duration: value.duration <= 0 ? 'Duration must be positive' : '',
+            score: {
+                team1:
+                    value.score.team1 === undefined || value.score.team1 < 0
+                        ? 'Score must be 0 or greater'
+                        : '',
+                team2:
+                    value.score.team2 === undefined || value.score.team2 < 0
+                        ? 'Score must be 0 or greater'
+                        : '',
+            },
             team1Id: value.team1Id === '' ? 'Team 1 is required' : '',
             team2Id: value.team2Id === '' ? 'Team 2 is required' : '',
         }
-        setErrors({ ...newErrors, duration: Number(newErrors.duration) })
-        return !Object.values(newErrors).some((error) => error !== '')
+
+        setErrors(newErrors)
+
+        const hasErrors =
+            Object.values(newErrors).some(
+                (error) => typeof error === 'string' && error !== '',
+            ) || Object.values(newErrors.score).some((s) => s !== '')
+
+        return !hasErrors
     }
 
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        if (validateFields()) {
-            mutate({ ...value, duration: Number(value.duration) })
+        const isValid = validateFields()
+
+        if (isValid) {
+            mutate({
+                ...value,
+                duration: Number(value.duration),
+                score: {
+                    team1: value.score.team1 ?? 0,
+                    team2: value.score.team2 ?? 0,
+                },
+            })
         }
     }
 
     if (isPending) return <p>Loading...</p>
 
-    if (error) {
-        return <p>Error: {error.message}</p>
-    }
+    if (error) return <p>Error</p>
 
     return (
         <FormWrapper onSubmit={onSubmit}>
@@ -131,7 +171,7 @@ export const AddCompetitionForm = () => {
 
             <Label htmlFor="duration">Duration (minutes)</Label>
             <Input
-                type="string"
+                type="number"
                 id="duration"
                 value={value.duration}
                 onChange={(e) =>
@@ -142,14 +182,50 @@ export const AddCompetitionForm = () => {
                 <p style={{ color: 'red' }}>{errors.duration}</p>
             )}
 
-            <Label htmlFor="result">Result</Label>
-            <Input
-                type="text"
-                id="result"
-                value={value.result}
-                onChange={(e) => setValue({ ...value, result: e.target.value })}
-            />
-            {errors.result && <p style={{ color: 'red' }}>{errors.result}</p>}
+            <Label>Score</Label>
+            <div style={{ display: 'flex', gap: '10px' }}>
+                <div>
+                    <Label htmlFor="score-team1">Team 1 Score</Label>
+                    <Input
+                        type="number"
+                        id="score-team1"
+                        value={value.score.team1}
+                        onChange={(e) =>
+                            setValue({
+                                ...value,
+                                score: {
+                                    ...value.score,
+                                    team1: Number(e.target.value),
+                                },
+                            })
+                        }
+                    />
+                    {errors.score.team1 && (
+                        <p style={{ color: 'red' }}>{errors.score.team1}</p>
+                    )}
+                </div>
+
+                <div>
+                    <Label htmlFor="score-team2">Team 2 Score</Label>
+                    <Input
+                        type="number"
+                        id="score-team2"
+                        value={value.score.team2}
+                        onChange={(e) =>
+                            setValue({
+                                ...value,
+                                score: {
+                                    ...value.score,
+                                    team2: Number(e.target.value),
+                                },
+                            })
+                        }
+                    />
+                    {errors.score.team2 && (
+                        <p style={{ color: 'red' }}>{errors.score.team2}</p>
+                    )}
+                </div>
+            </div>
 
             <Label htmlFor="team1">Team 1</Label>
             <Select
