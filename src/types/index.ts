@@ -27,7 +27,7 @@ export interface TeamDto {
 }
 
 export interface Result {
-    team1: number,
+    team1: number
     team2: number
 }
 
