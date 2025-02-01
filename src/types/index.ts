@@ -26,13 +26,18 @@ export interface TeamDto {
     location: string
 }
 
+export interface Result {
+    team1: number
+    team2: number
+}
+
 export interface Game {
     id: string
     date: string
     title: string
     place: string
     duration: number
-    result: string
+    score: Result
     team1Id: string
     team2Id: string
 }
@@ -42,7 +47,7 @@ export interface GameDto {
     title: string
     place: string
     duration: number
-    result: string
+    score: Result
     team1Id: string
     team2Id: string
 }
